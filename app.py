@@ -17,11 +17,24 @@ from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
 
 # ─────────────────────────────────────────
-# Load model artifacts on startup
+# Auto-train if model files are missing
+# (happens on first Render deploy)
 # ─────────────────────────────────────────
 BASE_DIR   = os.path.dirname(__file__)
 MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
+if not os.path.exists(os.path.join(MODELS_DIR, 'rf_model.pkl')):
+    print("Model not found — running train_model.py ...")
+    import subprocess, sys
+    subprocess.run(
+        [sys.executable, os.path.join(BASE_DIR, 'train_model.py')],
+        check=True
+    )
+    print("Training complete.")
+
+# ─────────────────────────────────────────
+# Load model artifacts
+# ─────────────────────────────────────────
 model          = joblib.load(os.path.join(MODELS_DIR, 'rf_model.pkl'))
 label_encoders = joblib.load(os.path.join(MODELS_DIR, 'label_encoders.pkl'))
 

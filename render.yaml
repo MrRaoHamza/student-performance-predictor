@@ -2,7 +2,7 @@ services:
   - type: web
     name: gradeiq-predictor
     runtime: python
-    buildCommand: pip install -r requirements.txt && python train_model.py
+    buildCommand: pip install -r requirements.txt && python train_model.py --quiet
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION

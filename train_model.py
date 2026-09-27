@@ -9,6 +9,9 @@ Student Performance Prediction - ML Pipeline
 - Saves model + preprocessor + feature list with joblib
 """
 
+import sys
+QUIET = '--quiet' in sys.argv
+
 import os
 import json
 import warnings
