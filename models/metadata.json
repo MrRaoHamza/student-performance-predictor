@@ -1,0 +1,195 @@
+{
+  "features": [
+    "school",
+    "sex",
+    "address",
+    "famsize",
+    "Pstatus",
+    "Mjob",
+    "Fjob",
+    "reason",
+    "guardian",
+    "schoolsup",
+    "famsup",
+    "paid",
+    "activities",
+    "nursery",
+    "higher",
+    "internet",
+    "romantic",
+    "age",
+    "Medu",
+    "Fedu",
+    "traveltime",
+    "studytime",
+    "failures",
+    "famrel",
+    "freetime",
+    "goout",
+    "Dalc",
+    "Walc",
+    "health",
+    "absences",
+    "G1",
+    "G2",
+    "study_freetime_ratio",
+    "parental_support_score",
+    "alcohol_index",
+    "social_risk",
+    "prior_failure",
+    "high_aspiration"
+  ],
+  "categorical_cols": [
+    "school",
+    "sex",
+    "address",
+    "famsize",
+    "Pstatus",
+    "Mjob",
+    "Fjob",
+    "reason",
+    "guardian",
+    "schoolsup",
+    "famsup",
+    "paid",
+    "activities",
+    "nursery",
+    "higher",
+    "internet",
+    "romantic"
+  ],
+  "numeric_cols": [
+    "age",
+    "Medu",
+    "Fedu",
+    "traveltime",
+    "studytime",
+    "failures",
+    "famrel",
+    "freetime",
+    "goout",
+    "Dalc",
+    "Walc",
+    "health",
+    "absences",
+    "G1",
+    "G2",
+    "study_freetime_ratio",
+    "parental_support_score",
+    "alcohol_index",
+    "social_risk",
+    "prior_failure",
+    "high_aspiration"
+  ],
+  "encoder_maps": {
+    "school": [
+      "GP",
+      "MS"
+    ],
+    "sex": [
+      "F",
+      "M"
+    ],
+    "address": [
+      "R",
+      "U"
+    ],
+    "famsize": [
+      "GT3",
+      "LE3"
+    ],
+    "Pstatus": [
+      "A",
+      "T"
+    ],
+    "Mjob": [
+      "at_home",
+      "health",
+      "other",
+      "services",
+      "teacher"
+    ],
+    "Fjob": [
+      "at_home",
+      "health",
+      "other",
+      "services",
+      "teacher"
+    ],
+    "reason": [
+      "course",
+      "home",
+      "other",
+      "reputation"
+    ],
+    "guardian": [
+      "father",
+      "mother",
+      "other"
+    ],
+    "schoolsup": [
+      "no",
+      "yes"
+    ],
+    "famsup": [
+      "no",
+      "yes"
+    ],
+    "paid": [
+      "no",
+      "yes"
+    ],
+    "activities": [
+      "no",
+      "yes"
+    ],
+    "nursery": [
+      "no",
+      "yes"
+    ],
+    "higher": [
+      "no",
+      "yes"
+    ],
+    "internet": [
+      "no",
+      "yes"
+    ],
+    "romantic": [
+      "no",
+      "yes"
+    ]
+  },
+  "metrics": {
+    "accuracy": 0.8615,
+    "precision": 0.8958,
+    "recall": 0.9149,
+    "f1_score": 0.9053,
+    "roc_auc": 0.9545
+  },
+  "feature_importances": {
+    "G1": 0.3301,
+    "G2": 0.2248,
+    "failures": 0.0783,
+    "prior_failure": 0.0519,
+    "studytime": 0.0386,
+    "study_freetime_ratio": 0.0303,
+    "Medu": 0.0188,
+    "absences": 0.0162,
+    "parental_support_score": 0.0157,
+    "alcohol_index": 0.0144,
+    "Fedu": 0.0107,
+    "age": 0.01,
+    "activities": 0.0089,
+    "Mjob": 0.0087,
+    "famrel": 0.0087
+  },
+  "best_params": {
+    "class_weight": null,
+    "max_depth": null,
+    "max_features": "sqrt",
+    "min_samples_leaf": 2,
+    "min_samples_split": 5,
+    "n_estimators": 100
+  }
+}

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GradeIQ — Student Performance Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────── -->
+<nav>
+  <div class="nav-left">
+    <a href="/" class="nav-logo">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+      GradeIQ
+    </a>
+    <div class="nav-divider"></div>
+    <span class="nav-crumb">Performance Predictor</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-pill">
+      <div class="nav-dot"></div>
+      Model live · 86.2% acc
+    </div>
+  </div>
+</nav>
+
+<!-- ── APP SHELL ─────────────────────────────── -->
+<div class="app">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigation</div>
+      <div class="sidebar-item active">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Predict
+      </div>
+      <div class="sidebar-item">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Model Stats
+      </div>
+      <div class="sidebar-item">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        History
+      </div>
+    </div>
+
+    <div class="sidebar-label" style="padding: 0 20px; margin-bottom: 10px;">Model Metrics</div>
+    <div class="stat-cards">
+      <div class="mini-stat">
+        <div class="mini-stat-val">86.2%</div>
+        <div class="mini-stat-key">Accuracy</div>
+        <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:86.2%"></div></div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val">0.954</div>
+        <div class="mini-stat-key">ROC-AUC</div>
+        <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:95.4%"></div></div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val">90.5%</div>
+        <div class="mini-stat-key">F1 Score</div>
+        <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:90.5%"></div></div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-val">649</div>
+        <div class="mini-stat-key">Training samples</div>
+        <div class="mini-stat-bar"><div class="mini-stat-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN FORM AREA -->
+  <main class="main-scroll">
+    <div class="form-page-title">
+      <h1>Student Profile</h1>
+      <p>Fill in the details below. The model analyzes 38 features — grades, study habits, family background, and lifestyle — to predict pass or fail.</p>
+    </div>
+
+    <form id="predictForm" novalidate>
+
+      <!-- ① Personal -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="section-num">1</div>
+          <span class="section-title">Personal</span>
+          <span class="section-desc">Basic demographics</span>
+        </div>
+        <div class="field-grid">
+
+          <div class="field">
+            <div class="field-label">School</div>
+            <select name="school" required>
+              <option value="">Choose…</option>
+              <option value="GP">Gabriel Pereira</option>
+              <option value="MS">Mousinho da Silveira</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Sex</div>
+            <select name="sex" required>
+              <option value="">Choose…</option>
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">
+              Age
+              <span class="field-hint">15–22</span>
+            </div>
+            <input type="number" name="age" min="15" max="22" placeholder="17" required />
+          </div>
+
+          <div class="field">
+            <div class="field-label">Home Address</div>
+            <select name="address" required>
+              <option value="">Choose…</option>
+              <option value="U">Urban</option>
+              <option value="R">Rural</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Family Size</div>
+            <select name="famsize" required>
+              <option value="">Choose…</option>
+              <option value="LE3">≤ 3 members</option>
+              <option value="GT3">&gt; 3 members</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Parents' Status</div>
+            <select name="Pstatus" required>
+              <option value="">Choose…</option>
+              <option value="T">Living together</option>
+              <option value="A">Apart</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ② Family Background -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="section-num">2</div>
+          <span class="section-title">Family Background</span>
+          <span class="section-desc">Education &amp; work</span>
+        </div>
+        <div class="field-grid">
+
+          <div class="field">
+            <div class="field-label">Mother's Education</div>
+            <select name="Medu" required>
+              <option value="">Choose…</option>
+              <option value="0">None</option>
+              <option value="1">Primary (4th grade)</option>
+              <option value="2">5th–9th grade</option>
+              <option value="3">Secondary school</option>
+              <option value="4">Higher education</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Father's Education</div>
+            <select name="Fedu" required>
+              <option value="">Choose…</option>
+              <option value="0">None</option>
+              <option value="1">Primary (4th grade)</option>
+              <option value="2">5th–9th grade</option>
+              <option value="3">Secondary school</option>
+              <option value="4">Higher education</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Mother's Job</div>
+            <select name="Mjob" required>
+              <option value="">Choose…</option>
+              <option value="teacher">Teacher</option>
+              <option value="health">Health</option>
+              <option value="services">Civil services</option>
+              <option value="at_home">At home</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Father's Job</div>
+            <select name="Fjob" required>
+              <option value="">Choose…</option>
+              <option value="teacher">Teacher</option>
+              <option value="health">Health</option>
+              <option value="services">Civil services</option>
+              <option value="at_home">At home</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Guardian</div>
+            <select name="guardian" required>
+              <option value="">Choose…</option>
+              <option value="mother">Mother</option>
+              <option value="father">Father</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Reason for This School</div>
+            <select name="reason" required>
+              <option value="">Choose…</option>
+              <option value="home">Close to home</option>
+              <option value="reputation">Reputation</option>
+              <option value="course">Course preference</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ③ Academic -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="section-num">3</div>
+          <span class="section-title">Academic</span>
+          <span class="section-desc">Grades &amp; attendance</span>
+        </div>
+        <div class="field-grid">
+
+          <div class="field">
+            <div class="field-label">Travel Time</div>
+            <select name="traveltime" required>
+              <option value="">Choose…</option>
+              <option value="1">&lt; 15 min</option>
+              <option value="2">15–30 min</option>
+              <option value="3">30–60 min</option>
+              <option value="4">&gt; 60 min</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Weekly Study Time</div>
+            <select name="studytime" required>
+              <option value="">Choose…</option>
+              <option value="1">&lt; 2 hrs</option>
+              <option value="2">2–5 hrs</option>
+              <option value="3">5–10 hrs</option>
+              <option value="4">&gt; 10 hrs</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">Past Failures</div>
+            <select name="failures" required>
+              <option value="">Choose…</option>
+              <option value="0">None</option>
+              <option value="1">1 class</option>
+              <option value="2">2 classes</option>
+              <option value="3">3+ classes</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-label">
+              Absences
+              <span class="field-hint">0–93</span>
+            </div>
+            <input type="number" name="absences" min="0" max="93" placeholder="4" required />
+          </div>
+
+          <div class="field">
+            <div class="field-label">
+              1st Term Grade
+              <span class="field-hint">G1, 0–20</span>
+            </div>
+            <input type="number" name="G1" min="0" max="20" placeholder="12" required />
+          </div>
+
+          <div class="field">
+            <div class="field-label">
+              2nd Term Grade
+              <span class="field-hint">G2, 0–20</span>
+            </div>
+            <input type="number" name="G2" min="0" max="20" placeholder="11" required />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ④ Support & Extras -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="section-num">4</div>
+          <span class="section-title">Support &amp; Extras</span>
+          <span class="section-desc">Resources &amp; activities</span>
+        </div>
+        <div class="field-grid four">
+
+          <div class="toggle-field">
+            <div class="field-label">School Support</div>
+            <div class="toggle-btns" data-name="schoolsup">
+              <div class="toggle-btn on"  data-val="no">No</div>
+              <div class="toggle-btn"     data-val="yes">Yes</div>
+            </div>
+            <input type="hidden" name="schoolsup" value="no" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Family Support</div>
+            <div class="toggle-btns" data-name="famsup">
+              <div class="toggle-btn on"  data-val="yes">Yes</div>
+              <div class="toggle-btn"     data-val="no">No</div>
+            </div>
+            <input type="hidden" name="famsup" value="yes" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Paid Classes</div>
+            <div class="toggle-btns" data-name="paid">
+              <div class="toggle-btn on"  data-val="no">No</div>
+              <div class="toggle-btn"     data-val="yes">Yes</div>
+            </div>
+            <input type="hidden" name="paid" value="no" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Activities</div>
+            <div class="toggle-btns" data-name="activities">
+              <div class="toggle-btn on"  data-val="yes">Yes</div>
+              <div class="toggle-btn"     data-val="no">No</div>
+            </div>
+            <input type="hidden" name="activities" value="yes" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Nursery School</div>
+            <div class="toggle-btns" data-name="nursery">
+              <div class="toggle-btn on"  data-val="yes">Yes</div>
+              <div class="toggle-btn"     data-val="no">No</div>
+            </div>
+            <input type="hidden" name="nursery" value="yes" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Higher Education</div>
+            <div class="toggle-btns" data-name="higher">
+              <div class="toggle-btn on"  data-val="yes">Yes</div>
+              <div class="toggle-btn"     data-val="no">No</div>
+            </div>
+            <input type="hidden" name="higher" value="yes" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Internet Access</div>
+            <div class="toggle-btns" data-name="internet">
+              <div class="toggle-btn on"  data-val="yes">Yes</div>
+              <div class="toggle-btn"     data-val="no">No</div>
+            </div>
+            <input type="hidden" name="internet" value="yes" />
+          </div>
+
+          <div class="toggle-field">
+            <div class="field-label">Romantic Rel.</div>
+            <div class="toggle-btns" data-name="romantic">
+              <div class="toggle-btn on"  data-val="no">No</div>
+              <div class="toggle-btn"     data-val="yes">Yes</div>
+            </div>
+            <input type="hidden" name="romantic" value="no" />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ⑤ Lifestyle -->
+      <div class="form-section">
+        <div class="form-section-header">
+          <div class="section-num">5</div>
+          <span class="section-title">Lifestyle</span>
+          <span class="section-desc">Rate 1 (low) → 5 (high)</span>
+        </div>
+        <div class="field-grid two">
+
+          <div class="scale-field">
+            <div class="field-label">Family Relationship Quality</div>
+            <div class="scale-row" data-name="famrel">
+              <div class="scale-dot" data-val="1">1</div>
+              <div class="scale-dot" data-val="2">2</div>
+              <div class="scale-dot" data-val="3">3</div>
+              <div class="scale-dot active" data-val="4">4</div>
+              <div class="scale-dot" data-val="5">5</div>
+            </div>
+            <input type="hidden" name="famrel" value="4" />
+          </div>
+
+          <div class="scale-field">
+            <div class="field-label">Free Time After School</div>
+            <div class="scale-row" data-name="freetime">
+              <div class="scale-dot" data-val="1">1</div>
+              <div class="scale-dot" data-val="2">2</div>
+              <div class="scale-dot active" data-val="3">3</div>
+              <div class="scale-dot" data-val="4">4</div>
+              <div class="scale-dot" data-val="5">5</div>
+            </div>
+            <input type="hidden" name="freetime" value="3" />
+          </div>
+
+          <div class="scale-field">
+            <div class="field-label">Going Out with Friends</div>
+            <div class="scale-row" data-name="goout">
+              <div class="scale-dot" data-val="1">1</div>
+              <div class="scale-dot active" data-val="2">2</div>
+              <div class="scale-dot" data-val="3">3</div>
+              <div class="scale-dot" data-val="4">4</div>
+              <div class="scale-dot" data-val="5">5</div>
+            </div>
+            <input type="hidden" name="goout" value="2" />
+          </div>
+
+          <div class="scale-field">
+            <div class="field-label">Health Status</div>
+            <div class="scale-row" data-name="health">
+              <div class="scale-dot" data-val="1">1</div>
+              <div class="scale-dot" data-val="2">2</div>
+              <div class="scale-dot" data-val="3">3</div>
+              <div class="scale-dot active" data-val="4">4</div>
+              <div class="scale-dot" data-val="5">5</div>
+            </div>
+            <input type="hidden" name="health" value="4" />
+          </div>
+
+          <div class="scale-field">
+            <div class="field-label">Workday Alcohol</div>
+            <div class="scale-row" data-name="Dalc">
+              <div class="scale-dot active" data-val="1">1</div>
+              <div class="scale-dot" data-val="2">2</div>
+              <div class="scale-dot" data-val="3">3</div>
+              <div class="scale-dot" data-val="4">4</div>
+              <div class="scale-dot" data-val="5">5</div>
+            </div>
+            <input type="hidden" name="Dalc" value="1" />
+          </div>
+
+          <div class="scale-field">
+            <div class="field-label">Weekend Alcohol</div>
+            <div class="scale-row" data-name="Walc">
+              <div class="scale-dot active" data-val="1">1</div>
+              <div class="scale-dot" data-val="2">2</div>
+              <div class="scale-dot" data-val="3">3</div>
+              <div class="scale-dot" data-val="4">4</div>
+              <div class="scale-dot" data-val="5">5</div>
+            </div>
+            <input type="hidden" name="Walc" value="1" />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="submit-row">
+        <button type="submit" class="btn-run" id="predictBtn">
+          <div class="spin"></div>
+          <span class="btn-label">Run prediction</span>
+        </button>
+        <span class="submit-note">Random Forest · 38 features · SMOTE balanced</span>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- RIGHT SIDEBAR: RESULTS -->
+  <aside class="result-sidebar" id="resultSidebar">
+
+    <!-- Empty state -->
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">⚡</div>
+      <h3>No prediction yet</h3>
+      <p>Fill in the student profile and run the model to see the result here.</p>
+    </div>
+
+    <!-- Verdict block (hidden until result) -->
+    <div class="verdict-block" id="verdictBlock">
+      <div class="verdict-top">
+        <div class="verdict-outcome">
+          <div class="verdict-badge" id="verdictBadge"></div>
+          <div class="verdict-title" id="verdictTitle"></div>
+          <div class="verdict-sub" id="verdictSub"></div>
+        </div>
+        <!-- SVG circle progress -->
+        <svg class="prob-circle" viewBox="0 0 58 58" id="circleChart">
+          <circle cx="29" cy="29" r="24" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+          <circle cx="29" cy="29" r="24" fill="none" stroke="#7c3aed" stroke-width="5"
+                  stroke-linecap="round"
+                  stroke-dasharray="150.8"
+                  stroke-dashoffset="150.8"
+                  id="circleArc"
+                  style="transition: stroke-dashoffset 1s cubic-bezier(0.34,1.56,0.64,1)"/>
+          <text x="29" y="29" class="prob-circle-text" id="circleLabel">0%</text>
+        </svg>
+      </div>
+
+      <div class="prob-bar-section">
+        <div class="prob-labels">
+          <span>Pass probability</span>
+          <span id="probPct">—</span>
+        </div>
+        <div class="prob-track">
+          <div class="prob-fill" id="probFill"></div>
+        </div>
+      </div>
+
+      <div class="risk-row">
+        <span class="risk-label-text">Risk level</span>
+        <span class="risk-tag" id="riskTag">—</span>
+      </div>
+    </div>
+
+    <!-- Key factors -->
+    <div class="factors-block" id="factorsBlock">
+      <div class="block-header">
+        <span class="block-title">Key Factors</span>
+        <span class="block-count" id="factorCount">0 factors</span>
+      </div>
+      <div class="factor-list" id="factorList"></div>
+    </div>
+
+    <!-- Feature importance -->
+    <div class="importance-block">
+      <div class="block-header">
+        <span class="block-title">Feature Importance</span>
+        <span class="block-count">top 6</span>
+      </div>
+      <div class="feat-list-inner" id="featList"></div>
+    </div>
+
+  </aside>
+</div>
+<!-- /app -->
+
+<div class="toast" id="toast"></div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
